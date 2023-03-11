@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-light"
+    style="background-color: black;box-shadow: rgba(165, 174, 37, 0.45) 0px 25px 20px -20px;">
+    <a class="navbar-brand" href="/"><img src="/images/logo2.jpg" alt="" style="width: 220px; height: 60px;"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active">
+                <a class="nav-link btn btn-warning pt-1 pt-0 mt-1 ml-5" href="#"
+                    style="color: #0c0c0c; width: 70px; height: 30px; border-radius: 20px; text-align: center;">SELL<span
+                        class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link btn btn-warning pt-1 pt-0 mt-1 ml-4" href="#"
+                    style="color: #0c0c0c; width: 70px; height: 30px; border-radius: 20px; text-align: center;">CART<span
+                        class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link btn btn-warning pt-1 pt-0 mt-1 ml-4" href="#"
+                    style="color: #0c0c0c; width: 90px; height: 30px; border-radius: 20px; text-align: center;">ORDERS<span
+                        class="sr-only">(current)</span></a>
+            </li>
+
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2 pb-1 pt-0 mt-0" type="search" placeholder="Search" aria-label="Search"
+                style="border-radius: 20px;">
+
+            <button class="btn btn-outline-warning my-2 my-sm-0 mr-sm-2 pb-3 pt-0 mt-0"
+                style="border-radius: 20px; height: 30px;" type="submit">Search</button>
+        </form>
+        <div class="dropdown my-2  mr-sm-2 ">
+            <button class="btn btn-outline-warning dropdown-toggle pb-3 pt-0 mt-0" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                style="border-radius: 20px; height: 30px;">
+                {{#if user}}
+                {{user.Name}}
+                {{else}}
+                Account
+                {{/if}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {{#if user}}
+                <a class="dropdown-item" href="/logout">Logout</a>
+                {{else}}
+                <a class="dropdown-item" href="/login">Login</a>
+                <a class="dropdown-item" href="/sinup">Signup</a>
+                {{/if}}
+
+            </div>
+        </div>
+    </div>
+</nav>
