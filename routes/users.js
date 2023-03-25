@@ -17,12 +17,17 @@ module.exports.common=(req,res,next)=>
     }
 }
 
-router.get('/', function (req, res, next) {
+router.get('/',function (req, res, next) {
 
-  adminbase.Output_admin_products().then((products) => {
+  adminbase.Output_admin_products().then(async (products) => {
     if (req.session.status) {
       var user = req.session.user
-      res.render('./user/first-page', { products, admin: false, user })
+
+      await userbase.cart_count(req.session.user._id).then((count) => {
+        res.render('./user/first-page', { products, admin: false, user, count })
+      })
+
+
     }
     else {
       res.render('./user/first-page', { products, admin: false })
@@ -31,6 +36,7 @@ router.get('/', function (req, res, next) {
 
 
   })
+  
 });
 
 router.get('/sinup', (req, res) => {
@@ -83,6 +89,29 @@ router.get('/cart',this.common,(req,res)=>
    {
      res.redirect('/')
    })
+})
+
+router.get('/intocart',this.common,(req,res)=>
+{
+    userbase.Get_cart_products(req.session.user._id).then((products)=>
+    {
+       res.render('./user/cart-page',{admin:false,products,user:req.session.user})
+    })
+})
+
+router.get('/buynow',this.common,(req,res)=>
+{
+   res.render('./user/buy-page',{admin:false,user:req.session.user})
+})
+
+router.get('/sell',this.common,(req,res)=>
+{
+   res.render('./user/sell-page',{admin:false,user:req.session.user})
+})
+
+router.post('/sell',(req,res)=>
+{
+   console.log(req.body)
 })
 
 module.exports = router;

@@ -25,7 +25,7 @@ module.exports=
                  {
                     state.db = data.db(dbname);
                     //console.log("data base connection successfull...")
-                     resolve("Data base connection successfull...")
+                     resolve("Database connection successfull...")
                  }
               })
 

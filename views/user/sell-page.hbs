@@ -1,0 +1,110 @@
+<div style="background-color: black;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/sell" method="post" enctype="multipart/form-data" style="color: white;" class="p-5">
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Breed Name :</label>
+                        <input type="text" name="pname" class="form-control" id="exampleInputPassword1"
+                            placeholder="Pug" style="width: 50%;"> <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Pet Type :</label>
+                        <select name="petype" id="cars">
+                            <option value="dog">Dog</option>
+                            <option value="cat">cat</option>
+                            <option value="bird">bird</option>
+                            <option value="fish">fish</option>
+                            <option value="rabbit">rabbit
+                            <option value="hourse">horse</option>
+                            <option value="goat">goat</option>
+                            </option>
+                        </select> <br>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Sex :</label>
+                        <select name="sex" id="cars">
+                            <option value="male">Male</option>
+                            <option value="femail">female</option>
+                            </option>
+                        </select> <br>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Age(month) :</label>
+                        <input type="number" name="age" class="form-control" id="exampleInputPassword1"
+                            placeholder="10 months" style="width: 50%;">
+                        <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Price ₹ :</label>
+                        <input type="number" name="price" class="form-control" id="exampleInputPassword1"
+                            placeholder="1000 ₹" style="width: 50%;">
+                    </div>
+
+                    <div class="form-group">
+                        <br>
+                        <label for="">KCL certified / vaccinated :</label> <br>
+                        <input type="radio" id="veh" name="kcl" value="true">
+                        <label for="yes"> Yes</label><br>
+                        <input type="radio" id="veh" name="kcl" value="false">
+                        <label for="No"> No</label><br>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Address :</label>
+                        <input type="text" name="address" class="form-control" id="exampleInputPassword1"
+                            placeholder="House Name & Number" style="width: 50%;"> <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Place :</label>
+                        <input type="text" name="place" class="form-control" placeholder="Place,District,State"
+                            style="height: 5em; width: 50%;"> <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Discription About Your Pet :</label>
+                        <input type="text " name="discription" class="form-control" id="exampleInputPassword1"
+                            placeholder="My Pet Is XXXX" style="height: 5em; width: 50%;"> <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">
+                            <p style="display: inline; color: white;">📞 </p>Phone Number :
+                        </label>
+                        <input type="number" name="phno" class="form-control" id="exampleInputPassword1"
+                            placeholder="9899XXXXXXXX" style="width: 50%;"> <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Image 1 :</label>
+                        <input type="file" name="image1" class="form-control" id="exampleInputPassword1"
+                            style="width: 50%;"> <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Image 2 :</label>
+                        <input type="file" name="image2" class="form-control" id="exampleInputPassword1"
+                            style="width: 50%;"> <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Image 3 :</label>
+                        <input type="file" name="image3" class="form-control" id="exampleInputPassword1"
+                            style="width: 50%;"> <br>
+                    </div>
+                    <button type="submit" class="btn btn-warning mt-3"
+                        style="width: 50%; color: black;"><b>Submit</b></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

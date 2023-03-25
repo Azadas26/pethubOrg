@@ -1,0 +1,18 @@
+adminbase.Output_admin_products().then(async(products) => {
+    if (req.session.status) {
+      var user = req.session.user
+
+      await userbase.cart_count(req.session.user._id).then((count)=>
+      {
+        res.render('./user/first-page', { products, admin: false, user ,count})
+      })
+
+      
+    }
+    else {
+      res.render('./user/first-page', { products, admin: false })
+    }
+
+
+
+  })
