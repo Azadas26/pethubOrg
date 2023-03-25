@@ -2,7 +2,8 @@
     style="background-color: black;box-shadow: rgba(165, 174, 37, 0.45) 0px 25px 20px -20px;">
     <a class="navbar-brand" href="/"><img src="/images/logo2.jpg" alt="" style="width: 220px; height: 60px;"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #ffc107;">
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+        style="background-color: #ffc107;">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -11,19 +12,20 @@
 
             <li class="nav-item active">
                 <a class="nav-link btn btn-warning pt-1 pt-0 mt-1 ml-5" href="/sell"
-                    style="color: #0c0c0c; width: 70px; height: 30px; border-radius: 20px; text-align: center;">SELL <b>+</b><span
-                        class="sr-only">(current)</span></a>
+                    style="color: #0c0c0c; width: 70px; height: 30px; border-radius: 20px; text-align: center;">SELL
+                    <b>+</b><span class="sr-only">(current)</span></a>
             </li>
 
             <li class="nav-item active">
                 <a class="nav-link btn btn-warning pt-1 pt-0 mt-1 ml-4" href="/intocart"
-                    style="color: #0c0c0c; width: 87px; height: 30px; border-radius: 20px; text-align: center;">CART <span class="badge badge-success" id="cartnum" >{{count}}</span><span
+                    style="color: #0c0c0c; width: 87px; height: 30px; border-radius: 20px; text-align: center;">CART
+                    <span class="badge badge-success" id="cartnum">{{count}}</span><span
                         class="sr-only">(current)</span></a>
-                        
+
             </li>
 
             <li class="nav-item active">
-                <a class="nav-link btn btn-warning pt-1 pt-0 mt-1 ml-4" href="#"
+                <a class="nav-link btn btn-warning pt-1 pt-0 mt-1 ml-4" href="/orders"
                     style="color: #0c0c0c; width: 90px; height: 30px; border-radius: 20px; text-align: center;">ORDERS<span
                         class="sr-only">(current)</span></a>
             </li>
@@ -49,10 +51,11 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 {{#if user}}
-                <a class="dropdown-item" href="/logout">Logout</a>
+                <a class="dropdown-item " href="/logout">Logout</a>
+                <a href="/usersell" class="dropdown-item ">Your Sells</a>
                 {{else}}
-                <a class="dropdown-item" href="/login">Login</a>
-                <a class="dropdown-item" href="/sinup">Signup</a>
+                <a class="dropdown-item mr-4" href="/login">Login</a>
+                <a class="dropdown-item mr-4" href="/sinup">Signup</a>
                 {{/if}}
 
             </div>

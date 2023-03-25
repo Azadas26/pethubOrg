@@ -14,29 +14,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                       {{#each products}}
-                            <tr style="color: white; font-size: 20px;">
-                                
-                                <td>{{@index}}</td>
-                                <td><img src="/admin_image/{{this._id}}.jpg" width="150px" height="100px" alt=""></td>
-                                <td>{{this.name}}</td>
-                                <td>{{this.price}}</td>
-                                <td>
-                                    <select name="cars" id="cars" class="mt-4" style="background-color: #ffc107;">
-                                        <option value="one">1</option>
-                                        <option value="two">2</option>
-                                        <option value="three">3</option>
-                                        <option value="four">4</option>
-                                        <option value="five">5</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <a href="" class="btn btn-danger mt-4">Remove  <b>X</b></a>
-                                    <a href="/buynow" class="btn btn-warning mt-4">Buy Now</a>
-                                </td>
-                               
-                            </tr>
-                       {{/each}}
+                        {{#each products}}
+                        <tr style="color: white; font-size: 20px;">
+
+                            <td>{{@index}}</td>
+                            <td><a href=""><img src="/user-image/{{this._id}}1.jpg" width="150px" height="100px"
+                                        alt=""></a></td>
+                            <td><a href="" style="text-decoration: none; color: white;">{{this.petinfo.pname}}</a></td>
+                            <td><a href="" style="text-decoration: none; color: white;">{{this.petinfo.price}}</a></td>
+                            <td>
+                                <select name="cars" id="cars" class="mt-4" style="background-color: #ffc107;">
+                                    <option value="one">1</option>
+                                    <option value="two">2</option>
+                                    <option value="three">3</option>
+                                    <option value="four">4</option>
+                                    <option value="five">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <a href="" class="btn btn-danger mt-4">Remove <b>X</b></a>
+                                <a href="/buynow" class="btn btn-warning mt-4">Buy Now</a>
+                            </td>
+
+                        </tr>
+                        {{/each}}
                     </tbody>
                 </table>
             </div>

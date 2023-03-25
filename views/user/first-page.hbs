@@ -22,20 +22,24 @@
             {{#each products}}
 
             <div class=" col-md-3 mt-3 p-5">
-                <a class=" " href="/proinfo" style="text-decoration: none; color: #fff;">
+                <a class=" " href="/proinfo?id={{this._id}}" style="text-decoration: none; color: #fff;">
                     <div class="card m-auto"
                         style="width: 18rem; border-radius: 20px; background-color: black; box-shadow: rgba(222, 201, 15, 0.3) 0px 0px 0px 3px; height: 26empx; margin-top: 100em;">
-                        <img class=" p-3" src="admin_image/{{this._id}}.jpg" alt="Card image cap"
+                        <img class="img-fluid p-3" src="user-image/{{this._id}}1.jpg" alt="Card image cap"
                             style="border-radius: 30px; height: 200px;">
                         <div class="card-body" style="text-align: center;">
-                            <h5 class="card-title" style="color: #ffc107;">{{this.name}}</h5>
-                            
-                            <p>₹ {{this.price}}/-</p>
+                            <h5 class="card-title" style="color: #ffc107;">{{this.petinfo.pname}}</h5>
 
-                           <a href="/cart?id={{this._id}}" class="btn btn-warning" style="border-radius: 20px;">Add To Cart</a>
+                            <p style="font-size: 21px;">₹ {{this.petinfo.price}} /-</p>
+                            <p><i class="material-icons">my_location</i>
+                                {{this.petinfo.place}}</p>
+
+                            <a href="/cart?id={{this._id}}" class="btn btn-warning" style="border-radius: 20px;"
+                                onmouseover="click ">Add To
+                                Cart</a>
 
                         </div>
-                        
+
                     </div>
                 </a>
 
@@ -50,5 +54,3 @@
 
     </div>
 </div>
-
-

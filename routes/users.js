@@ -5,38 +5,40 @@ var userbase = require('../database/user_base')
 
 /* GET users listing. */
 
-module.exports.common=(req,res,next)=>
-{
-    if(req.session.user)
-    {
-      next()
-    }
-    else
-    {
-      res.redirect('/login')
-    }
+module.exports.common = (req, res, next) => {
+  if (req.session.user) {
+    next()
+  }
+  else {
+    res.redirect('/login')
+  }
 }
 
-router.get('/',function (req, res, next) {
+router.get('/', async function (req, res, next) {
 
-  adminbase.Output_admin_products().then(async (products) => {
-    if (req.session.status) {
-      var user = req.session.user
+   if(req.session.user)
+   {
+     await userbase.cart_count(req.session.user._id).then((count) => {
+       userbase.get_pets_by_user().then((products) => {
 
-      await userbase.cart_count(req.session.user._id).then((count) => {
-        res.render('./user/first-page', { products, admin: false, user, count })
+         if (req.session.status) {
+
+           res.render('./user/first-page', { products, admin: false, user: req.session.user, count })
+         }
+         else {
+           res.render('./user/first-page', { products, admin: false, count })
+         }
+       })
+     })
+   }
+   else
+   {
+      userbase.get_pets_by_user().then((products)=>
+      {
+        res.render('./user/first-page', { products, admin: false, count: 0 })
       })
+   }
 
-
-    }
-    else {
-      res.render('./user/first-page', { products, admin: false })
-    }
-
-
-
-  })
-  
 });
 
 router.get('/sinup', (req, res) => {
@@ -51,16 +53,14 @@ router.post('/sinup', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-   if(req.session.false)
-   {
-     var err = "Invali Username or Password..."
-     res.render('./user/login-page',{err})
-     req.session.false=false
-   }
-   else
-   {
-     res.render('./user/login-page')
-   }
+  if (req.session.false) {
+    var err = "Invali Username or Password..."
+    res.render('./user/login-page', { err })
+    req.session.false = false
+  }
+  else {
+    res.render('./user/login-page')
+  }
 })
 
 router.post('/login', (req, res) => {
@@ -71,47 +71,85 @@ router.post('/login', (req, res) => {
       res.redirect('/')
     }
     else {
-      req.session.false=true
+      req.session.false = true
       res.redirect('/login')
     }
   })
 })
 
-router.get('/logout',(req,res)=>
-{
-   req.session.destroy()
-   res.redirect('/login')
+router.get('/logout', (req, res) => {
+  req.session.destroy()
+  res.redirect('/login')
 })
 
-router.get('/cart',this.common,(req,res)=>
-{
-   userbase.Add_to_cart(req.session.user._id,req.query.id).then((data)=>
+router.get('/cart', this.common, (req, res) => {
+  //console.log(req.query.id)
+  userbase.Add_to_cart(req.session.user._id, req.query.id).then((data) => {
+    res.redirect('/')
+  })
+})
+
+router.get('/intocart', this.common, (req, res) => {
+  userbase.Get_cart_products(req.session.user._id).then((products) => {
+   if(products)
    {
-     res.redirect('/')
-   })
+     res.render('./user/cart-page', { admin: false, products, user: req.session.user })
+     
+   }
+  })
 })
 
-router.get('/intocart',this.common,(req,res)=>
+router.get('/buynow', this.common, (req, res) => {
+  res.render('./user/buy-page', { admin: false, user: req.session.user })
+})
+
+router.get('/sell', this.common, (req, res) => {
+  res.render('./user/sell-page', { admin: false, user: req.session.user })
+})
+
+router.post('/sell', this.common, (req, res) => {
+  //onsole.log(req.body)
+  userbase.Add_pets_sell(req.session.user._id, req.body).then((id) => {
+    if (req.files.image1) {
+      var img1 = req.files.image1
+      img1.mv("public/user-image/" + id + "1.jpg")
+      var img2 = req.files.image2
+      img2.mv("public/user-image/" + id + "2.jpg")
+      var img3 = req.files.image3
+      img3.mv("public/user-image/" + id + "3.jpg")
+
+    }
+
+    res.redirect('/sell')
+  })
+})
+
+router.get('/usersell',this.common,(req,res)=>
 {
-    userbase.Get_cart_products(req.session.user._id).then((products)=>
+  userbase.Get_user_selldetails(req.session.user._id).then((pets)=>
+  {
+    res.render('./user/sell-view', { admin: false, user: req.session.user,pets})
+  })
+    
+})
+
+router.get('/selldelete',this.common,(req,res)=>
+{
+    userbase.Delete_user_sell(req.query.id).then((data)=>
     {
-       res.render('./user/cart-page',{admin:false,products,user:req.session.user})
+      res.redirect('/usersell')
+    })
+})
+router.get('/proinfo',this.common,(req,res)=>
+{
+    userbase.Get_choosed_product_info(req.query.id).then((product)=>
+    {
+      console.log(product)
+      res.render('./user/product-page', { product,admin:false,user:req.session.user})
     })
 })
 
-router.get('/buynow',this.common,(req,res)=>
-{
-   res.render('./user/buy-page',{admin:false,user:req.session.user})
-})
 
-router.get('/sell',this.common,(req,res)=>
-{
-   res.render('./user/sell-page',{admin:false,user:req.session.user})
-})
 
-router.post('/sell',(req,res)=>
-{
-   console.log(req.body)
-})
 
 module.exports = router;

@@ -1,0 +1,60 @@
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 p-3">
+
+
+
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">NO.</th>
+                            <th scope="col">Breed Name</th>
+                            <th scope="col">Pet Type</th>
+                            <th scope="col">Sex</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">KCL</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Place</th>
+                            <th scope="col">Discription</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Image 1</th>
+                            <th scope="col">Image 2</th>
+                            <th scope="col">Image 3</th>
+                            <th scope="col">Choose Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each pets}}
+                        <tr>
+
+                            <td>{{@index}}</td>
+                            <td>{{this.petinfo.pname}}</td>
+                            <td>{{this.petinfo.ptype}}</td>
+                            <td>{{this.petinfo.sex}}</td>
+                            <td>{{this.petinfo.age}}</td>
+                            <td>{{this.petinfo.price}}</td>
+                            <td>{{this.petinfo.kcl}}</td>
+                            <td>{{this.petinfo.address}}</td>
+                            <td>{{this.petinfo.place}}</td>
+                            <td>{{this.petinfo.discription}}</td>
+                            <td>{{this.petinfo.phno}}</td>
+                            <td><img src="/user-image/{{this._id}}1.jpg" alt="" style="width: 100px; height: 100px;">
+                            </td>
+                            <td><img src="/user-image/{{this._id}}2.jpg" alt="" style="width: 100px; height: 100px;">
+                            </td>
+                            <td><img src="/user-image/{{this._id}}3.jpg" alt="" style="width: 100px; height: 100px;">
+                            </td>
+                            <td>
+                                <a href="/selldelete?id={{this._id}}" class="btn btn-danger mt-4" onclick="return confirm('Are you shure to delete this product({{this.petinfo.pname}})???')">Delete</a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

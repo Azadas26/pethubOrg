@@ -1,0 +1,54 @@
+<div style="background-color: black;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mt-5 text-center">
+                <h1 style="color: white; text-shadow: 3px 3px red;">{{product.petinfo.pname}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-center p-4 mt-3">
+
+
+                <img src="/user-image/{{product._id}}1.jpg" id="img1"
+                    style="width: 600px; height: 600px;  border-radius: 20px;" class="mt-2 p-2">
+                <img src="/user-image/{{product._id}}2.jpg" id="img2"
+                    style="width: 600px; height: 600px;  border-radius: 20px; display: none;" class="mt-2 p-2">
+                <img src="/user-image/{{product._id}}3.jpg" id="img3"
+                    style="width: 600px; height: 600px;  border-radius: 20px; display: none;" class="mt-2 p-2">
+
+                <div class="text-center mt-3">
+                    <button id="b1" style="border-radius: 50%;" class="btn btn-warning"><b>&#8678;</b></button>
+                    <button id="b2" style="border-radius: 50%;" class="btn btn-warning ml-2"><b><i
+                                class="material-icons">layers</i></b></button>
+                    <button id="b3" style="border-radius: 50%;" class="btn btn-warning ml-2"><b>&#8680;</b></button>
+                </div>
+
+
+
+            </div>
+            <div class="col-md-6  p-5" style="color: white;">
+
+                <h3 class="">Pet Type&emsp;:&emsp;{{product.petinfo.petype}}</h3> <br>
+                <h3 class="">Pet Sex&emsp;:&emsp;{{product.petinfo.sex}}</h3>
+                <h3 class="mt-5 text-center">{{product.petinfo.discription}}</h3>
+                {{#if product.petinfo.kcl}}
+                <h3 class="mt-5"> &#174; &emsp;KCL certified / vaccinated &emsp; :&emsp; &#10004;</h3>
+                {{else}}
+                <h3 class="mt-5">&#174; &emsp;KCL certified / vaccinated &emsp; :&emsp; &#10006;</h3>
+                {{/if}}
+                <h3 class="mt-5">&#8377; &emsp; Price&emsp;:&emsp; {{product.petinfo.price}} /-</h3>
+                <h3 class="mt-5">
+                    <p style="display: inline; font-size: 35px;"><i class="material-icons">my_location </i>&emsp;</p>
+                    Location
+                    &emsp;:&emsp;{{product.petinfo.address}}
+                </h3>
+                <h3 class="text-center">{{product.petinfo.place}}</h3>
+
+                <h3 class="mt-5"><i class="material-icons">local_phone</i>&emsp; Owners Phone Number &emsp; :&emsp;+91
+                    {{product.petinfo.phno}}</h3>
+
+                <a href="/buynow" class="btn btn-warning mt-5" style="width: 100%; border-radius: 12px;">By Now</a>
+            </div>
+        </div>
+    </div>
+</div>

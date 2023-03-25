@@ -1,13 +1,20 @@
-<div style="background-color: black;">
+<div style="background-color: black;" class="background-image">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <form action="/sell" method="post" enctype="multipart/form-data" style="color: white;" class="p-5">
+                <h1 class="mt-5" style="text-align: center; color: white;  text-shadow: 2px 2px #ffc107;">Enter Your
+                    Pets
+                    Details...</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form action="/sell" method="post" enctype="multipart/form-data" style="color: white;" class="p-4">
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">Breed Name :</label>
                         <input type="text" name="pname" class="form-control" id="exampleInputPassword1"
-                            placeholder="Pug" style="width: 50%;"> <br>
+                            placeholder="Pug" style="width: 100%;"> <br>
                     </div>
 
                     <div class="form-group">
@@ -38,14 +45,14 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Age(month) :</label>
                         <input type="number" name="age" class="form-control" id="exampleInputPassword1"
-                            placeholder="10 months" style="width: 50%;">
+                            placeholder="10 months" style="width: 100%;">
                         <br>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">Price ₹ :</label>
                         <input type="number" name="price" class="form-control" id="exampleInputPassword1"
-                            placeholder="1000 ₹" style="width: 50%;">
+                            placeholder="1000 ₹" style="width: 100%;">
                     </div>
 
                     <div class="form-group">
@@ -61,19 +68,19 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Address :</label>
                         <input type="text" name="address" class="form-control" id="exampleInputPassword1"
-                            placeholder="House Name & Number" style="width: 50%;"> <br>
+                            placeholder="House Name & Number" style="width: 100%;"> <br>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">Place :</label>
                         <input type="text" name="place" class="form-control" placeholder="Place,District,State"
-                            style="height: 5em; width: 50%;"> <br>
+                            style="height: 5em; width: 100%;"> <br>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">Discription About Your Pet :</label>
                         <input type="text " name="discription" class="form-control" id="exampleInputPassword1"
-                            placeholder="My Pet Is XXXX" style="height: 5em; width: 50%;"> <br>
+                            placeholder="My Pet Is XXXX" style="height: 5em; width: 100%;"> <br>
                     </div>
 
                     <div class="form-group">
@@ -81,30 +88,48 @@
                             <p style="display: inline; color: white;">📞 </p>Phone Number :
                         </label>
                         <input type="number" name="phno" class="form-control" id="exampleInputPassword1"
-                            placeholder="9899XXXXXXXX" style="width: 50%;"> <br>
+                            placeholder="9899XXXXXXXX" style="width: 100%;"> <br>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">Image 1 :</label>
                         <input type="file" name="image1" class="form-control" id="exampleInputPassword1"
-                            style="width: 50%;"> <br>
+                            style="width: 100%;"> <br>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">Image 2 :</label>
                         <input type="file" name="image2" class="form-control" id="exampleInputPassword1"
-                            style="width: 50%;"> <br>
+                            style="width: 100%;"> <br>
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword1">Image 3 :</label>
                         <input type="file" name="image3" class="form-control" id="exampleInputPassword1"
-                            style="width: 50%;"> <br>
+                            style="width: 100%;"> <br>
                     </div>
                     <button type="submit" class="btn btn-warning mt-3"
-                        style="width: 50%; color: black;"><b>Submit</b></button>
+                        style="width: 100%; color: black;"><b>Submit</b></button>
                 </form>
+            </div>
+            <div class="col-md-6 mt-5">
+                <div class="text-right pr-3">
+                   
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+<style>
+    .background-image {
+    
+        background-image: url('/images/blackdog.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: right;
+
+    }
+</style>
