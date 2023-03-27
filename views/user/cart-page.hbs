@@ -14,7 +14,7 @@
         </div>
 
 
-
+    {{#if products}}
         <div class="row" style="background-color: black;">
             <div class="col-12 col-md-12 p-5">
                 <table class="table " style="text-align:center ;">
@@ -31,10 +31,10 @@
                     <tbody>
                         {{#each products}}
                         <tr style="color: white; font-size: 20px;">
-
+        
                             <td>{{@index}}</td>
-                            <td><a href=""><img src="/user-image/{{this._id}}1.jpg" width="150px" height="100px"
-                                        alt=""></a></td>
+                            <td><a href=""><img src="/user-image/{{this._id}}1.jpg" width="150px" height="100px" alt=""></a>
+                            </td>
                             <td><a href="" style="text-decoration: none; color: white;">{{this.petinfo.pname}}</a></td>
                             <td><a href="" style="text-decoration: none; color: white;">{{this.petinfo.price}}</a></td>
                             <td>
@@ -47,15 +47,19 @@
                                 </select>
                             </td>
                             <td>
-                                <a href="" class="btn btn-danger mt-4">Remove <b>X</b></a>
+                                <a href="/cartremove?id={{this._id}}" class="btn btn-danger mt-4"
+                                    onclick="return confirm('Are you sure to remove this')">Remove <b>X</b></a>
                                 <a href="/buynow" class="btn btn-warning mt-4">Buy Now</a>
                             </td>
-
+        
                         </tr>
                         {{/each}}
                     </tbody>
                 </table>
             </div>
         </div>
+    {{else}}
+        <h1 class="text-center mt-5 p-5 text-white">Nothing you selected....</h1>
+    {{/if}}        
     </div>
 </div>

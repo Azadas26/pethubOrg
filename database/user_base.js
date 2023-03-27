@@ -218,5 +218,16 @@ module.exports =
            //console.log(carts[0].allproducts)
            resolve(carts[0].allproducts)
        })
+    },
+    Cart_remove_products:(userId,proId)=>
+    {
+        return new Promise(async(resolve,reject)=>
+        {
+            await db.get().collection(consts.cart_base).updateOne({users: objectId(userId) }, { "$pull": { "products": objectId(proId) } }).then((data)=>
+            {
+                 console.log(data)
+                 resolve(data)
+            })
+        })
     }
 }

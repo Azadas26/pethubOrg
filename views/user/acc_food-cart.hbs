@@ -11,6 +11,7 @@
         </div>
     </div>
 
+    {{#if products}}
     <div class="row" style="background-color: black;">
         <div class="col-12 col-md-12 p-5">
             <table class="table " style="text-align:center ;">
@@ -43,7 +44,8 @@
                             </select>
                         </td>
                         <td>
-                            <a href="/cartremove?id={{this._id}}" class="btn btn-danger mt-4">Remove <b>X</b></a>
+                            <a href="/cartremove?id={{this._id}}" class="btn btn-danger mt-4"
+                                onclick="return confirm('Are you shure to remove this')">Remove <b>X</b></a>
                             <a href="/buynow" class="btn btn-warning mt-4">Buy Now</a>
                         </td>
 
@@ -53,4 +55,9 @@
             </table>
         </div>
     </div>
+    {{else}}
+    <div class="pt-5">
+        <h1 class="text-center mt-5 p-5 text-primary">Nothing you selected....</h1>
+    </div>
+    {{/if}}
 </div>

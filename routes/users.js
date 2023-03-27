@@ -196,7 +196,17 @@ router.get('/intocart2',this.common,(req,res)=>
     })
 })
 
-
+router.get('/cartremove',(req,res)=>
+{
+   userbase.Cart_remove_products(req.session.user._id,req.query.id).then((data)=>
+   {
+     res.redirect('/intocart2')
+   })
+})
+router.get('/instruction',this.common,(req,res)=>
+{
+   res.render('./user/instruction',{admin:false,user:req.session.user})
+})
 
 
 module.exports = router;
