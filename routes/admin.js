@@ -5,7 +5,7 @@ var adminbase = require('../database/admin_base')
 /* GET home page. */
 router.get('/', function (req, res, next) {
 
-  adminbase.Output_admin_products().then((products)=>
+  adminbase.Output_admin_products_for_admin().then((products)=>
   {
     res.render('./admin/list-products', { admin: true, products })
   })
@@ -22,17 +22,21 @@ router.post('/add', (req, res) => {
   adminbase.Input_admin_products(req.body).then((id) => {
 
 
-    var image = req.files.image
-    image.mv("public/admin_image/" + id + ".jpg", (err, done) => {
-      if (err) {
-        console.log(err)
-      }
-      else {
-        res.redirect('/admin/add')
-      }
-    })
-  })
+    if(req.files.image)
+    {
+      var image = req.files.image
+      image.mv("public/admin_image/" + id + ".jpg", (err, done) => {
+        if (err) {
+          console.log(err)
+        }
+        else {
+          res.redirect('/admin/add')
+        }
+      })
+    
 
+    }
+  })
 })
 
 router.get('/delete',(req,res)=>

@@ -17,17 +17,36 @@ module.exports =
            })
        })
      },
-     Output_admin_products:()=>
+    Output_admin_products_for_admin: () => {
+        return new Promise(async (resolve, reject) => {
+            console.log("hello world")
+            await db.get().collection(consts.admin_base).find().toArray().then((data) => {
+                //console.log(data)
+                resolve(data)
+            })
+        })
+    },
+     Output_admin_products_acc:()=>
      {
          return new Promise(async(resolve,reject)=>
          {
-            await db.get().collection(consts.admin_base).find().toArray().then((data)=>
+            console.log("hello world")
+            await db.get().collection(consts.admin_base).find({type:'acc'}).toArray().then((data)=>
              {
                  //console.log(data)
                  resolve(data)
              })
          })
      },
+    Output_admin_products_food: () => {
+        return new Promise(async (resolve, reject) => {
+            console.log("hello world")
+            await db.get().collection(consts.admin_base).find({ type: 'food' }).toArray().then((data) => {
+                //console.log(data)
+                resolve(data)
+            })
+        })
+    },
      Delete_product:(id)=>
      {
          return new Promise(async(resolve,reject)=>

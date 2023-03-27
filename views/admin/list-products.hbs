@@ -1,6 +1,6 @@
 <div>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" style="color: white;">
             <div class="m-auto">
                 <a href="/admin/add" class="btn btn-success mt-4">Add Products</a>
             </div>
@@ -13,6 +13,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Discription</th>
                             <th scope="col">Price</th>
+                            <th scope="col">Type</th>
                             <th scope="col">Image</th>
                             <th scope="col">Option</th>
                         </tr>
@@ -25,6 +26,7 @@
                             <td>{{this.name}}</td>
                             <td>{{this.discription}}</td>
                             <td>{{this.price}}</td>
+                            <td>{{this.type}}</td>
                             <td><img src="admin_image/{{this._id}}.jpg" alt="" style="width: 200px; height: 200px;">
                             </td>
                             <td>

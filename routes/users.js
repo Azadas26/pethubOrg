@@ -16,28 +16,24 @@ module.exports.common = (req, res, next) => {
 
 router.get('/', async function (req, res, next) {
 
-   if(req.session.user)
-   {
-     await userbase.cart_count(req.session.user._id).then((count) => {
-       userbase.get_pets_by_user().then((products) => {
 
-         if (req.session.status) {
+  if (req.session.user) {
+    await userbase.cart_count(req.session.user._id).then((count) => {
+      userbase.get_pets_by_user().then((products) => {
 
-           res.render('./user/first-page', { products, admin: false, user: req.session.user, count })
-         }
-         else {
-           res.render('./user/first-page', { products, admin: false, count })
-         }
-       })
-     })
-   }
-   else
-   {
-      userbase.get_pets_by_user().then((products)=>
-      {
-        res.render('./user/first-page', { products, admin: false, count: 0 })
+       
+
+          res.render('./user/first-page', { products, admin: false, user: req.session.user, count })
+        
       })
-   }
+    })
+  }
+  else {
+    await userbase.get_pets_by_user().then((products) => {
+      res.render('./user/first-page', { products, admin: false, count: 0 })
+    })
+  }
+
 
 });
 
@@ -82,20 +78,20 @@ router.get('/logout', (req, res) => {
   res.redirect('/login')
 })
 
-router.get('/cart', this.common, (req, res) => {
+router.get('/cart',this.common,(req, res) => {
   //console.log(req.query.id)
   userbase.Add_to_cart(req.session.user._id, req.query.id).then((data) => {
-    res.redirect('/')
+    //res.redirect('/')
+    res.json({ status: true })
   })
 })
 
 router.get('/intocart', this.common, (req, res) => {
   userbase.Get_cart_products(req.session.user._id).then((products) => {
-   if(products)
-   {
-     res.render('./user/cart-page', { admin: false, products, user: req.session.user })
-     
-   }
+    if (products) {
+      res.render('./user/cart-page', { admin: false, products, user: req.session.user })
+
+    }
   })
 })
 
@@ -124,28 +120,79 @@ router.post('/sell', this.common, (req, res) => {
   })
 })
 
-router.get('/usersell',this.common,(req,res)=>
-{
-  userbase.Get_user_selldetails(req.session.user._id).then((pets)=>
-  {
-    res.render('./user/sell-view', { admin: false, user: req.session.user,pets})
+router.get('/usersell', this.common, (req, res) => {
+  userbase.Get_user_selldetails(req.session.user._id).then((pets) => {
+    res.render('./user/sell-view', { admin: false, user: req.session.user, pets })
   })
-    
+
 })
 
-router.get('/selldelete',this.common,(req,res)=>
-{
-    userbase.Delete_user_sell(req.query.id).then((data)=>
-    {
-      res.redirect('/usersell')
-    })
+router.get('/selldelete', this.common, (req, res) => {
+  userbase.Delete_user_sell(req.query.id).then((data) => {
+    res.redirect('/usersell')
+  })
 })
-router.get('/proinfo',this.common,(req,res)=>
+router.get('/proinfo', this.common, (req, res) => {
+  userbase.Get_choosed_product_info(req.query.id).then((product) => {
+    console.log(product)
+    res.render('./user/product-page', { product, admin: false, user: req.session.user })
+  })
+})
+
+router.get('/accessories',(req, res) => {
+  if (req.session.user) {
+
+    userbase.cart_count(req.session.user._id).then((count) => {
+
+      adminbase.Output_admin_products_acc().then((products) => {
+
+        if (req.session.user) {
+
+          res.render('./user/accessories-page', { admin: false, user: req.session.user, products, count })
+        }
+        else {
+          res.render('./user/accessories-page', { admin: false, products, count })
+        }
+      })
+    })
+  }
+  else {
+    adminbase.Output_admin_products_acc().then((products) => {
+      res.render('./user/accessories-page', { admin: false, user: req.session.user, products, count: 0 })
+    })
+  }
+})
+
+router.get('/food', (req, res) => {
+  if (req.session.user) {
+
+    userbase.cart_count(req.session.user._id).then((count) => {
+
+      adminbase.Output_admin_products_food().then((products) => {
+        //console.log(products)
+
+        if (req.session.user) {
+
+          res.render('./user/food-page', { admin: false, user: req.session.user, products, count })
+        }
+        else {
+          res.render('./user/food-page', { admin: false, products, count })
+        }
+      })
+    })
+  }
+  else {
+    adminbase.Output_admin_products_food().then((products) => {
+      res.render('./user/food-page', { admin: false, user: req.session.user, products, count: 0 })
+    })
+  }
+})
+
+router.get('/intocart2',this.common,(req,res)=>
 {
-    userbase.Get_choosed_product_info(req.query.id).then((product)=>
+    userbase.Get_cart_products2(req.session.user._id).then((products)=>
     {
-      console.log(product)
-      res.render('./user/product-page', { product,admin:false,user:req.session.user})
+       res.render('./user/acc_food-cart',{products,user:req.session.user,admin:false})
     })
 })
 

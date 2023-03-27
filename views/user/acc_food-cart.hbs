@@ -1,0 +1,56 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-6 " style="background-color: #343a40; text-align: center;">
+
+            <a href="/intocart" class="btn btn-dark" style="width: 100%; color: #ffc107;" id="pets">PETS CART</a>
+        </div>
+        <div class="col-md-6 " style="background-color: #ffc107;text-align: center;">
+            <a href="/intocart2" class="btn btn-warning" style="width: 100%;">𝘼𝘾𝘾𝙀𝙎𝙎𝙊𝙍𝙄𝙀𝙎<b> / FOOD
+                    CART</b> </a>
+        </div>
+    </div>
+
+    <div class="row" style="background-color: black;">
+        <div class="col-12 col-md-12 p-5">
+            <table class="table " style="text-align:center ;">
+                <thead>
+                    <tr style="color: white; font-size: 24px;">
+                        <th scope="col">NO.</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Product_Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Coose Option...</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each products}}
+                    <tr style="color: white; font-size: 20px;">
+
+                        <td>{{@index}}</td>
+                        <td><a href=""><img src="/admin_image/{{this._id}}.jpg" width="150px" height="100px" alt=""></a>
+                        </td>
+                        <td><a href="" style="text-decoration: none; color: white;">{{this.name}}</a></td>
+                        <td><a href="" style="text-decoration: none; color: white;">{{this.price}} /-</a></td>
+                        <td>
+                            <select name="cars" id="cars" class="mt-4" style="background-color: #ffc107;">
+                                <option value="one">1</option>
+                                <option value="two">2</option>
+                                <option value="three">3</option>
+                                <option value="four">4</option>
+                                <option value="five">5</option>
+                            </select>
+                        </td>
+                        <td>
+                            <a href="/cartremove?id={{this._id}}" class="btn btn-danger mt-4">Remove <b>X</b></a>
+                            <a href="/buynow" class="btn btn-warning mt-4">Buy Now</a>
+                        </td>
+
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

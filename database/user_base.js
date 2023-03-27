@@ -79,6 +79,7 @@ module.exports =
             var count= await db.get().collection(consts.cart_base).findOne({users:objectId(userId)})
             if (count)
             {
+                console.log(count)
                 resolve(count.products.length)
             }
             else
@@ -181,5 +182,41 @@ module.exports =
                 resolve(product)
             })
         })
+    },
+    Get_cart_products2:(userId)=>
+    {
+       return new Promise(async(resolve,reject)=>
+       {
+          var carts= await db.get().collection(consts.cart_base).aggregate([
+            {
+                $match:
+                {
+                    users:objectId(userId)
+                }
+            },
+            {
+                $lookup:
+                {
+                    from:consts.admin_base,
+                    let:{proList:'$products'},
+                    pipeline:
+                    [
+                        {
+                            $match:
+                            {
+                                $expr:
+                                {
+                                    $in:['$_id','$$proList']
+                                }
+                            }
+                        }
+                    ],
+                    as:'allproducts'
+                }
+            }
+           ]).toArray()
+           //console.log(carts[0].allproducts)
+           resolve(carts[0].allproducts)
+       })
     }
 }

@@ -9,8 +9,7 @@ $(document).ready(function () {
         $('#paycard').hide(1000)
     })
 
-    $('#b1').click(function()
-    {
+    $('#b1').click(function () {
         $('#img1').show(1000)
         $('#img2').hide(1000)
         $('#img3').hide(1000)
@@ -20,13 +19,16 @@ $(document).ready(function () {
         $('#img2').show(1000)
         $('#img1').hide(1000)
         $('#img3').hide(1000)
-        
+
     })
     $('#b3').click(function () {
-       
+
         $('#img3').show(1000)
         $('#img1').hide(1000)
         $('#img2').hide(1000)
     })
 
+    $('#pets').click(function () {
+        $('#f1').toggle(3000)
+    })
 })
