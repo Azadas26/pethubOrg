@@ -19,6 +19,7 @@ router.get('/', async function (req, res, next) {
 
   if (req.session.user) {
     await userbase.cart_count(req.session.user._id).then((count) => {
+      req.session.count=count
       userbase.get_pets_by_user().then((products) => {
 
        
@@ -106,6 +107,7 @@ router.get('/sell', this.common, (req, res) => {
 router.post('/sell', this.common, (req, res) => {
   //onsole.log(req.body)
   userbase.Add_pets_sell(req.session.user._id, req.body).then((id) => {
+    res.redirect('/sell')
     if (req.files.image1) {
       var img1 = req.files.image1
       img1.mv("public/user-image/" + id + "1.jpg")
@@ -116,7 +118,7 @@ router.post('/sell', this.common, (req, res) => {
 
     }
 
-    res.redirect('/sell')
+   
   })
 })
 
@@ -208,5 +210,17 @@ router.get('/instruction',this.common,(req,res)=>
    res.render('./user/instruction',{admin:false,user:req.session.user})
 })
 
+router.get('/acc&food',this.common,(req,res)=>
+{
+    userbase.Get_Details_of_admin_products(req.query.id).then((product)=>
+    {
+        res.render('./user/admin-product',{admin:false,user:req.session.user,count:req.session.count,product})
+    })
+})
+
+router.get('/orders',this.common,(req,res)=>
+{
+    res.render('./admin/order-page',{admin:false,user:req.session.user,count:req.session.count})
+})
 
 module.exports = router;

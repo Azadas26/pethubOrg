@@ -3,6 +3,7 @@
         <div class="row" style="color: white;">
             <div class="m-auto">
                 <a href="/admin/add" class="btn btn-success mt-4">Add Products</a>
+                <a href="/admin/useradd" class="btn btn-warning mt-4">About User Products</a>
             </div>
             <div class="col-md-12">
 
@@ -30,7 +31,8 @@
                             <td><img src="admin_image/{{this._id}}.jpg" alt="" style="width: 200px; height: 200px;">
                             </td>
                             <td>
-                                <a href="/admin/delete?id={{this._id}}" class="btn btn-danger" onclick="return confirm('are sure to delete {{this.name}} ??')">Delete</a>
+                                <a href="/admin/delete?id={{this._id}}" class="btn btn-danger"
+                                    onclick="return confirm('are sure to delete {{this.name}} ??')">Delete</a>
                                 <a href="/admin/edit?id={{this._id}}" class="btn btn-primary">Edit</a>
                             </td>
                         </tr>

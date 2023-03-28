@@ -1,0 +1,44 @@
+<div style="background-color: black;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mt-5 text-center">
+                <h1 style="color: white; text-shadow: 3px 3px #ffc107; font-family: Arial Black;">{{product.name}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-center p-4 mt-3">
+
+
+                <img src="/admin_image/{{product._id}}.jpg" style="width: 600px; height: 600px;  border-radius: 20px;"
+                    class="mt-2 p-2 img-fluid">
+
+
+
+
+
+
+            </div>
+            <div class="col-md-6  p-5 mt-5 align-items-center " style="color: white;">
+
+                <div class="mt-5">
+
+                <h3 class="text-center">{{product.discription}}</h3>
+                <h3 class="mt-5 text-center">{{product.petinfo.discription}}</h3>
+                
+                <h3 class="mt-5">Product Typee&emsp;:&emsp; {{product.type}}</h3>
+                <h3 class="mt-5">
+                    <p style="display: inline; font-size: 35px;"></p>
+                    Price
+                    &emsp;:&emsp;{{product.price}} /-
+                </h3>
+                
+                
+                
+                
+                
+                <a href="/buynow" class="btn btn-warning mt-5" style="width: 100%; border-radius: 12px;">By Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

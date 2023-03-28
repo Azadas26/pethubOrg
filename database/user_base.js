@@ -229,5 +229,16 @@ module.exports =
                  resolve(data)
             })
         })
+    },
+    Get_Details_of_admin_products:(proId)=>
+    {
+            return new Promise(async(resolve,reject)=>
+            {
+                await db.get().collection(consts.admin_base).findOne({_id:objectId(proId)}).then((data)=>
+                {
+                   // console.log(data)
+                   resolve(data)
+                })
+            })
     }
 }

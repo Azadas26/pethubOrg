@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 mt-5 text-center">
-                <h1 style="color: white; text-shadow: 3px 3px red;">{{product.petinfo.pname}}</h1>
+                <h1 style="color: white; text-shadow: 3px 3px #ffc107; font-family: Arial Black;">{{product.petinfo.pname}}</h1>
             </div>
         </div>
         <div class="row">
@@ -10,11 +10,13 @@
 
 
                 <img src="/user-image/{{product._id}}1.jpg" id="img1"
-                    style="width: 600px; height: 600px;  border-radius: 20px;" class="mt-2 p-2">
+                    style="width: 600px; height: 600px;  border-radius: 20px;" class="mt-2 p-2 img-fluid">
                 <img src="/user-image/{{product._id}}2.jpg" id="img2"
-                    style="width: 600px; height: 600px;  border-radius: 20px; display: none;" class="mt-2 p-2">
+                    style="width: 600px; height: 600px;  border-radius: 20px; display: none;"
+                    class="mt-2 p-2 img-fluid">
                 <img src="/user-image/{{product._id}}3.jpg" id="img3"
-                    style="width: 600px; height: 600px;  border-radius: 20px; display: none;" class="mt-2 p-2">
+                    style="width: 600px; height: 600px;  border-radius: 20px; display: none;"
+                    class="mt-2 p-2 img-fluid">
 
                 <div class="text-center mt-3">
                     <button id="b1" style="border-radius: 50%;" class="btn btn-warning"><b>1</b></button>
@@ -37,14 +39,17 @@
                 {{/if}}
                 <h3 class="mt-5">&#8377; &emsp; Price&emsp;:&emsp; {{product.petinfo.price}} /-</h3>
                 <h3 class="mt-5">
-                    <p style="display: inline; font-size: 35px;"><i class="material-icons">my_location </i>&emsp;</p>
+                    <p style="display: inline; font-size: 35px;"><i class="material-icons"
+                            style="font-size:35px">place</i>&emsp;</p>
                     Location
                     &emsp;:&emsp;{{product.petinfo.address}}
                 </h3>
                 <h3 class="text-center">{{product.petinfo.place}}</h3>
 
                 <h3 class="mt-5"><i class="material-icons">local_phone</i>&emsp; Owners Phone Number &emsp; :&emsp;+91
-                    {{product.petinfo.phno}}</h3>
+                    <a href=" https://globfone.com/call-phone-online/">{{product.petinfo.phno}}</a>
+                </h3>
+
 
                 <a href="/buynow" class="btn btn-warning mt-5" style="width: 100%; border-radius: 12px;">By Now</a>
             </div>

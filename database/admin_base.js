@@ -87,5 +87,16 @@ module.exports =
                 resolve(data)
              })
          })
+     },
+     get_user_selled_products:()=>
+     {
+        return new Promise(async(resolve,reject)=>
+        {
+            await db.get().collection(consts.sell_base).find().toArray().then((data)=>
+            {
+                 //console.log(data)
+                 resolve(data)
+            })
+        })
      }
 }
