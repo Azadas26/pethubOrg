@@ -14,7 +14,7 @@
         </div>
 
 
-    {{#if products}}
+        {{#if products}}
         <div class="row" style="background-color: black;">
             <div class="col-12 col-md-12 p-5">
                 <table class="table " style="text-align:center ;">
@@ -31,35 +31,73 @@
                     <tbody>
                         {{#each products}}
                         <tr style="color: white; font-size: 20px;">
-        
+
                             <td>{{@index}}</td>
-                            <td><a href=""><img src="/user-image/{{this._id}}1.jpg" width="150px" height="100px" alt=""></a>
+                            <td><a href=""><img src="/user-image/{{this.pro._id}}1.jpg" width="150px" height="100px"
+                                        alt=""></a>
                             </td>
-                            <td><a href="" style="text-decoration: none; color: white;">{{this.petinfo.pname}}</a></td>
-                            <td><a href="" style="text-decoration: none; color: white;">{{this.petinfo.price}}</a></td>
+                            <td><a href="" style="text-decoration: none; color: white;">{{this.pro.petinfo.pname}}</a>
+                            </td>
+                            <td><a href="" style="text-decoration: none; color: white;">{{this.pro.petinfo.price}}</a>
+                            </td>
                             <td>
-                                <select name="cars" id="cars" class="mt-4" style="background-color: #ffc107;">
-                                    <option value="one">1</option>
-                                    <option value="two">2</option>
-                                    <option value="three">3</option>
-                                    <option value="four">4</option>
-                                    <option value="five">5</option>
-                                </select>
+                                    <button type="button" class="m-2" onclick="cartqut('{{this._id}}','{{this.item}}','{{this.qut}}',1)">+</button> 
+                                    <span id="{{this.item}}">{{this.qut}}</span> 
+                                    <button type="button" class="m-2" onclick="cartqut('{{this._id}}','{{this.item}}','{{this.qut}}',-1)">-</button>
                             </td>
                             <td>
                                 <a href="/cartremove?id={{this._id}}" class="btn btn-danger mt-4"
                                     onclick="return confirm('Are you sure to remove this')">Remove <b>X</b></a>
-                                <a href="/buynow" class="btn btn-warning mt-4">Buy Now</a>
+
                             </td>
-        
+
                         </tr>
                         {{/each}}
                     </tbody>
                 </table>
+                <div class="float-right m-5">
+                    <h2 class="text-light">Total : <span id="total">{{total}}</span> ₹</h2>
+                    <a href="/placeorder" class="btn btn-success" style="width: 100%;">Place Order</a>
+                </div>
             </div>
         </div>
-    {{else}}
+        {{else}}
         <h1 class="text-center mt-5 p-5 text-white">Nothing you selected....</h1>
-    {{/if}}        
+        {{/if}}
     </div>
 </div>
+
+
+<script>
+    var cartqut = (cartId, proId, Quantity, cute) => {
+
+        var q = parseInt(document.getElementById(proId).innerHTML)
+
+
+        $.ajax({
+            url: '/cartqut',
+            data: {
+                cartid: cartId,
+                proid: proId,
+                quantity: q,
+                cut: parseInt(cute)
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.remove) {
+                    alert("Your Product is remove from the cart")
+                    location.reload()
+                }
+                else {
+
+
+                    document.getElementById(proId).innerHTML = q + cute
+                    document.getElementById('total').innerHTML = response.total
+
+
+                }
+            }
+
+        })
+    }
+</script>

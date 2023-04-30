@@ -19,13 +19,13 @@ router.get('/', async function (req, res, next) {
 
   if (req.session.user) {
     await userbase.cart_count(req.session.user._id).then((count) => {
-      req.session.count=count
+      req.session.count = count
       userbase.get_pets_by_user().then((products) => {
 
-       
 
-          res.render('./user/first-page', { products, admin: false, user: req.session.user, count })
-        
+
+        res.render('./user/first-page', { products, admin: false, user: req.session.user, count })
+
       })
     })
   }
@@ -79,7 +79,7 @@ router.get('/logout', (req, res) => {
   res.redirect('/login')
 })
 
-router.get('/cart',this.common,(req, res) => {
+router.get('/cart', this.common, (req, res) => {
   //console.log(req.query.id)
   userbase.Add_to_cart(req.session.user._id, req.query.id).then((data) => {
     //res.redirect('/')
@@ -90,9 +90,15 @@ router.get('/cart',this.common,(req, res) => {
 router.get('/intocart', this.common, (req, res) => {
   userbase.Get_cart_products(req.session.user._id).then((products) => {
     if (products) {
-      res.render('./user/cart-page', { admin: false, products, user: req.session.user })
+      userbase.Total_amount_from_carted_products(req.session.user._id).then((total)=>
+      {
+        res.render('./user/cart-page', { admin: false, products, user: req.session.user,total})
+      })
+      
 
     }
+  }).catch((data) => {
+    res.render('./user/cart-page', { admin: false, user: req.session.user })
   })
 })
 
@@ -118,7 +124,7 @@ router.post('/sell', this.common, (req, res) => {
 
     }
 
-   
+
   })
 })
 
@@ -141,7 +147,7 @@ router.get('/proinfo', this.common, (req, res) => {
   })
 })
 
-router.get('/accessories',(req, res) => {
+router.get('/accessories', (req, res) => {
   if (req.session.user) {
 
     userbase.cart_count(req.session.user._id).then((count) => {
@@ -190,37 +196,56 @@ router.get('/food', (req, res) => {
   }
 })
 
-router.get('/intocart2',this.common,(req,res)=>
-{
-    userbase.Get_cart_products2(req.session.user._id).then((products)=>
-    {
-       res.render('./user/acc_food-cart',{products,user:req.session.user,admin:false})
-    })
+router.get('/intocart2', this.common, (req, res) => {
+  userbase.Get_cart_products2(req.session.user._id).then((products) => {
+    res.render('./user/acc_food-cart', { products, user: req.session.user, admin: false })
+  })
 })
 
-router.get('/cartremove',(req,res)=>
-{
-   userbase.Cart_remove_products(req.session.user._id,req.query.id).then((data)=>
-   {
-     res.redirect('/intocart2')
-   })
-})
-router.get('/instruction',this.common,(req,res)=>
-{
-   res.render('./user/instruction',{admin:false,user:req.session.user})
+router.get('/cartremove', (req, res) => {
+  userbase.Cart_remove_products(req.session.user._id, req.query.id).then((data) => {
+    res.redirect('/intocart2')
+  })
 })
 
-router.get('/acc&food',this.common,(req,res)=>
-{
-    userbase.Get_Details_of_admin_products(req.query.id).then((product)=>
-    {
-        res.render('./user/admin-product',{admin:false,user:req.session.user,count:req.session.count,product})
-    })
+router.get('/instruction', this.common, (req, res) => {
+  res.render('./user/instruction', { admin: false, user: req.session.user })
 })
 
-router.get('/orders',this.common,(req,res)=>
-{
-    res.render('./admin/order-page',{admin:false,user:req.session.user,count:req.session.count})
+router.get('/acc&food', this.common, (req, res) => {
+  userbase.Get_Details_of_admin_products(req.query.id).then((product) => {
+    res.render('./user/admin-product', { admin: false, user: req.session.user, count: req.session.count, product })
+  })
 })
+
+router.get('/orders', this.common, (req, res) => {
+  res.render('./admin/order-page', { admin: false, user: req.session.user, count: req.session.count })
+})
+router.post('/cartqut',async(req,res)=>
+{
+  console.log("Hi...")
+  console.log(req.session.user._id);
+  await userbase.Change_product_Quantity(req.body).then(async(data) => {
+     if (data.data) {
+       res.json({ remove: true })
+     }
+     else {
+      await userbase.Total_amount_from_carted_products(req.session.user._id).then((Total) => {
+         res.json({ get: true, total: Total })
+       })
+
+     }
+  })
+})
+
+router.get('/placeorder',this.common,(req,res)=>
+{
+  userbase.Total_amount_from_carted_products(req.session.user._id).then((total) => {
+
+    res.render('./user/order-form', { userhd: true, user: req.session.user, total })
+
+  })
+})
+
 
 module.exports = router;

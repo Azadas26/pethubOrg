@@ -1,37 +1,55 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg navbar-light"
+    style="background-color: black;box-shadow: rgba(165, 174, 37, 0.45) 0px 25px 20px -20px;">
+    <a class="navbar-brand" href="/"><img src="/images/logo2.jpg" alt="" style="width: 220px; height: 60px;"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+        style="background-color: #ffc107;">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+
             <li class="nav-item active">
-                <a class="nav-link" href="#">Admin_Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link btn btn-warning pt-1 pt-0 mt-1 ml-5" href="/admin/add"
+                    style="color: #0c0c0c;  height: 30px; border-radius: 20px; text-align: center;">Add Product
+                    <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+
+            <li class="nav-item active">
+                <a class="nav-link btn btn-warning pt-1 pt-0 mt-1 ml-3" href="/admin/showpro"
+                    style="color: #0c0c0c;  height: 30px; border-radius: 20px; text-align: center;">Admin Products
+                    <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
+
+            <li class="nav-item active">
+                <a class="nav-link btn btn-warning pt-1 pt-0 mt-1 ml-3" href="/admin/useradd"
+                    style="color: #0c0c0c;  height: 30px; border-radius: 20px; text-align: center;">User Products
+                    <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
+
+            
+
+           
+
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        
+        <div class="dropdown my-2  mr-sm-2 ">
+            <button class="btn btn-outline-warning dropdown-toggle pb-3 pt-0 mt-0" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                style="border-radius: 20px; height: 30px;">
+
+
+                Admin
+
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                <a class="dropdown-item " href="/logout">Logout</a>
+              
+
+
+            </div>
+        </div>
     </div>
 </nav>

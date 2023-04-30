@@ -4,14 +4,43 @@ var adminbase = require('../database/admin_base')
 var userbase = require('../database/user_base')
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', (req, res) => {
+  if (req.session.adfalse) {
+    res.render('./admin/login-page', { admin: true,errr:"Incorrect Usename or Password"})
+    req.session.adfalse=false
+   }
+  else {
+    res.render('./admin/login-page', { admin: true })
+  }
+})
 
-  adminbase.Output_admin_products_for_admin().then((products) => {
-    res.render('./admin/list-products', { admin: true, products })
-  })
+router.post('/', (req, res) => {
+  console.log(req.body);
+  if (req.body.name == "admin") {
+   
+    if (req.body.password == "pethub") {
+      req.session.admin = "Admin"
+      req.session.adstatus = true
+      res.redirect('/admin/showpro')
+    }
+    else {
+      req.session.adfalse = true
+      res.redirect('/admin')
+    }
+  }
+  else {
+    req.session.adfalse = true;
+    res.redirect('/admin')
+  }
+})
+ router.get('/showpro', function (req, res, next) {
+
+   adminbase.Output_admin_products_for_admin().then((products) => {
+     res.render('./admin/list-products', { admin: true, products })
+   })
 
 
-});
+ });
 
 router.get('/add', (req, res) => {
   res.render('./admin/add-products', { admin: true })
