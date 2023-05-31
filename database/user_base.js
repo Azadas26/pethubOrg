@@ -112,46 +112,11 @@ module.exports =
     },
     Get_cart_products: (userId) => {
         return new Promise(async (resolve, reject) => {
-            var cartpro = await db.get().collection(consts.cart_base).aggregate([
-                {
-                    $match:
-                    {
-                        userid: objectId(userId)
-                    }
-
-                },
-                {
-                    $unwind: "$products"
-                },
-                {
-                    $project:
-                    {
-                        userId: "$userid",
-                        item: "$products.item",
-                        qut: "$products.qut"
-                    }
-                },
-                {
-                    $lookup:
-                    {
-                        from: consts.sell_base,
-                        localField: "item",
-                        foreignField: "_id",
-                        as: "product"
-                    }
-                },
-                {
-                    $project:
-                    {
-                        userId: 1, item: 1, qut: 1,
-                        pro: {
-                            $arrayElemAt: ["$product", 0]
-                        }
-                    }
-                }
-            ]).toArray()
-           // console.log(cartpro[0])
-            resolve(cartpro)
+             await db.get().collection(consts.cart_base).findOne({userid:objectId(userId)}).then((pro)=>
+            {
+                resolve(pro)
+            })
+            // console.log(cartpro[0])
         })
     },
     Add_pets_sell: (userId, data) => {
@@ -236,8 +201,9 @@ module.exports =
     },
     Cart_remove_products: (userId, proId) => {
         return new Promise(async (resolve, reject) => {
-            await db.get().collection(consts.cart_base).updateOne({ users: objectId(userId) }, { "$pull": { "products": objectId(proId) } }).then((data) => {
-                console.log(data)
+            console.log(userId,proId);
+            await db.get().collection(consts.cart_base).updateOne({ userid: objectId(userId) },{ $pull: { products: { item: objectId(proId) }}}).then((data) => {
+                // console.log(data)
                 resolve(data)
             })
         })
@@ -275,88 +241,276 @@ module.exports =
         })
     },
     Total_amount_from_carted_products: (userId) => {
-       
-            return new Promise(async (resolve, reject) => {
-                var total = await db.get().collection(consts.cart_base).aggregate([
-                    {
-                        $match:
-                        {
-                            userid: objectId(userId)
-                        }
 
-                    },
+        return new Promise(async (resolve, reject) => {
+            var total = await db.get().collection(consts.cart_base).aggregate([
+                {
+                    $match:
                     {
-                        $unwind: "$products"
-                    },
+                        userid: objectId(userId)
+                    }
+
+                },
+                {
+                    $unwind: "$products"
+                },
+                {
+                    $project:
                     {
-                        $project:
-                        {
-                            userId: "$userid",
-                            item: "$products.item",
-                            qut: "$products.qut"
-                        }
-                    },
+                        userId: "$userid",
+                        item: "$products.item",
+                        qut: "$products.qut"
+                    }
+                },
+                {
+                    $lookup:
                     {
-                        $lookup:
-                        {
-                            from: consts.sell_base,
-                            localField: "item",
-                            foreignField: "_id",
-                            as: "product"
-                        }
-                    },
+                        from: consts.admin_base,
+                        localField: "item",
+                        foreignField: "_id",
+                        as: "product"
+                    }
+                },
+                {
+                    $project:
                     {
-                        $project:
-                        {
-                            userId: 1, item: 1, qut: 1,
-                            first: {
-                                $arrayElemAt: ["$product", 0]
-                            }
-                        }
-                    },
-                    {
-                        $group:
-                        {
-                            _id: null,
-                            totalAmount: { $sum: { $multiply: [{ $toInt: "$first.petinfo.price" }, "$qut"] } }
+                        userId: 1, item: 1, qut: 1,
+                        first: {
+                            $arrayElemAt: ["$product", 0]
                         }
                     }
-                ]).toArray()
-                if (total[0]) {
-                    resolve(total[0].totalAmount)
+                },
+                {
+                    $group:
+                    {
+                        _id: null,
+                        totalAmount: { $sum: { $multiply: [{ $toInt: "$first.price" }, "$qut"] } }
+                    }
                 }
-                else {
-                    resolve(0)
-                }
-                //resolve(total)
-            })
-        },
-        User_Placed_Orderd:()=>
-        {
-            return new Promise(async(resolve,reject)=>
+            ]).toArray()
+           // console.log(total);
+             if (total[0]) {
+                 resolve(total[0].totalAmount)
+             }
+             else {
+                resolve(0)
+             }
+            //resolve(total)
+        })
+    },
+    User_Placed_Orderd: () => {
+        return new Promise(async (resolve, reject) => {
+            var state =
             {
-                var state=
-                {
-                    spuser:s_user,
-                    proId:objectId(proid),
-                    quantity:Quantity
-                }
-                var ss=await db.get().collection(consts.Order_base).findOnd({spuser:objectId(suser)})
-                if(ss)
-                {
-                    
-                }
-                else
-                {
-                   await db.get().collection(consts.Order_base).insertOns(state).then((data)=>
-                   {
-                    console.log(data)
-                   })
-                }
-            })
-        }
-    
+                spuser: s_user,
+                proId: objectId(proid),
+                quantity: Quantity
+            }
+            var ss = await db.get().collection(consts.Order_base).findOnd({ spuser: objectId(suser) })
+            if (ss) {
 
+            }
+            else {
+                await db.get().collection(consts.Order_base).insertOns(state).then((data) => {
+                    console.log(data)
+                })
+            }
+        })
+    },
+    Total_price_of_Each_product_by_Userproducts: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            var each = await db.get().collection(consts.cart_base).aggregate([
+                {
+                    $match:
+                    {
+                        userid: objectId(userId)
+                    }
+
+                },
+                {
+                    $unwind: "$products"
+                },
+                {
+                    $project:
+                    {
+                        userId: "$userid",
+                        item: "$products.item",
+                        qut: "$products.qut"
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from: consts.admin_base,
+                        localField: "item",
+                        foreignField: "_id",
+                        as: "product"
+                    }
+                },
+                {
+                    $project:
+                    {
+                        userId: 1, item: 1, qut: 1,
+                        first: {
+                            $arrayElemAt: ["$product", 0]
+                        }
+                    }
+                },
+                {
+                    $project:
+                    {
+                        userid: 1,
+                        first: 1,
+                        item: 1,
+                        qut: 1,
+                        totalAmount: { $sum: { $multiply: [{ $toInt: "$first.price" }, "$qut"] } }
+                    }
+                }
+
+            ]).toArray()
+            console.log(each);
+            resolve(each)
+        })
+    },
+    Place_single_Order_product__BY_User: (data) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(consts.single_Orders_base).insertOne(data).then((data) => {
+                resolve(data)
+            })
+        })
+    },
+    view_user_celled_orders: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            var details = await db.get().collection(consts.single_Orders_base).aggregate([
+                {
+                    $match: { me: objectId(userId) }
+                },
+                {
+                    $lookup:
+                    {
+                        from: consts.sell_base,
+                        localField: "product",
+                        foreignField: "_id",
+                        as: "products"
+                    }
+                },
+                {
+                    $project:
+                    {
+                        totalamount: 1, selluser: 1, quantity: 1, product: 1, me:1,
+                        pro: {
+                            $arrayElemAt: ["$products", 0]
+                        }
+                    }
+                }
+            ]).toArray()
+
+            console.log(details);
+            resolve(details)
+        })
+    },
+    Place_order_Products_which_are_FROMAdminSide:(info)=>
+    {
+        return new Promise((resolve,reject)=>
+        {
+            db.get().collection(consts.adminOrder_base).insertOne(info).then((data)=>
+            {
+                resolve(data)
+            })
+        })
+    },
+    remove_Automatically_AllProductfrom_card_BsedOwn_orderPlace:(userId)=>
+    {
+        return new Promise((resolve,reject)=>
+        {
+            db.get().collection(consts.cart_base).removeOne({ userid :objectId(userId)}).then(()=>
+            {
+                resolve();
+            })
+        })
+    },
+    Get_Product_Details_After_place_order:(userId)=>
+    {
+        return new Promise(async(resolve,reject)=>
+        {
+            var products = await db.get().collection(consts.adminOrder_base).aggregate([
+                {
+                    $match:
+                    {
+                        user:objectId(userId)
+                    }
+                },
+                {
+                    $unwind:"$products"
+                },
+                {
+                    $project:
+                    {
+                        _id:1,
+                        adsress:1,
+                        pin:1,
+                        ph:1,
+                        pay:1,
+                        total:1,
+                        status:1,
+                        item:'$products.item',
+                        quantity:'$products.qut',
+                        user:1,
+                        date:1
+                    }
+                },
+                {
+                    $lookup:
+                    {
+                        from:consts.admin_base,
+                        localField: 'item',
+                         foreignField:'_id',
+                         as:"proinfo"
+                    }
+                },
+                {
+                    $project:
+                    {
+                        _id: 1,
+                        adsress: 1,
+                        pin: 1,
+                        ph: 1,
+                        pay: 1,
+                        total: 1,
+                        status: 1,
+                        item: 1,
+                        quantity: 1,
+                        user: 1,
+                        date: 1,
+                        proinfo:
+                        {
+                            $arrayElemAt: ['$proinfo', 0 ]
+                        }
+                    }
+                }
+            ]).toArray()
+            console.log(products);
+            resolve(products)
+        })
+    },
+    Place_Pets_orders:(info)=>
+    {
+        return new Promise((resolve,reject)=>
+        {
+            db.get().collection(consts.user_Orders_base).insertOne(info).then((data)=>
+            {
+                resolve(data)
+            })
+        })
+    },
+    Get_ordered_pet_Details:(userId)=>
+    {
+        return new Promise(async(resolve,reject)=>
+        {
+            var pets = await db.get().collection(consts.user_Orders_base).find({byuser:objectId(userId)}).toArray()
+            resolve(pets)
+        })
+    }
 }
-       
+
 

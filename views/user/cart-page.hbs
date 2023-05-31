@@ -1,19 +1,6 @@
 <div>
     <div class="container-fluid">
 
-        <div class="row">
-            <div class="col-md-6 " style="background-color: #343a40; text-align: center;">
-
-                <a href="/intocart" class="btn btn-dark" style="width: 100%; color: #ffc107;" id="pets">PETS CART</a>
-            </div>
-            <div class="col-md-6 " style="background-color: #ffc107;text-align: center;">
-                <a href="/intocart2" class="btn btn-warning" style="width: 100%;">𝘼𝘾𝘾𝙀𝙎𝙎𝙊𝙍𝙄𝙀𝙎<b> / FOOD
-                        CART</b> </a>
-            </div>
-
-        </div>
-
-
         {{#if products}}
         <div class="row" style="background-color: black;">
             <div class="col-12 col-md-12 p-5">
@@ -25,7 +12,8 @@
                             <th scope="col">Product_Name</th>
                             <th scope="col">Price</th>
                             <th scope="col">Quantity</th>
-                            <th scope="col">Coose Option...</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Remove Products</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,20 +21,27 @@
                         <tr style="color: white; font-size: 20px;">
 
                             <td>{{@index}}</td>
-                            <td><a href=""><img src="/user-image/{{this.pro._id}}1.jpg" width="150px" height="100px"
-                                        alt=""></a>
+                            <td><a href="/proinfo?id={{this.item}}"><img src="/admin_image/{{this.first._id}}.jpg"
+                                        width="150px" height="100px" alt=""></a>
                             </td>
-                            <td><a href="" style="text-decoration: none; color: white;">{{this.pro.petinfo.pname}}</a>
+                            <td><a href="/proinfo?id={{this.item}}"
+                                    style="text-decoration: none; color: white;">{{this.first.name}}</a>
                             </td>
-                            <td><a href="" style="text-decoration: none; color: white;">{{this.pro.petinfo.price}}</a>
-                            </td>
-                            <td>
-                                    <button type="button" class="m-2" onclick="cartqut('{{this._id}}','{{this.item}}','{{this.qut}}',1)">+</button> 
-                                    <span id="{{this.item}}">{{this.qut}}</span> 
-                                    <button type="button" class="m-2" onclick="cartqut('{{this._id}}','{{this.item}}','{{this.qut}}',-1)">-</button>
+                            <td><a href="#" style="text-decoration: none; color: white;">{{this.first.price}}</a>
                             </td>
                             <td>
-                                <a href="/cartremove?id={{this._id}}" class="btn btn-danger mt-4"
+                                <button type="button" class="m-2"
+                                    onclick="cartqut('{{this._id}}','{{this.item}}','{{this.qut}}',1)">+</button>
+                                <span id="{{this.item}}">{{this.qut}}</span>
+                                <button type="button" class="m-2"
+                                    onclick="cartqut('{{this._id}}','{{this.item}}','{{this.qut}}',-1)">-</button>
+                            </td>
+                            <td>
+                                <a href="/proinfo?id={{this.item}}"
+                                    style="text-decoration: none; color: white;"><span>{{this.totalAmount}}</span></a>
+                            </td>
+                            <td>
+                                <a href="/cartremove?id={{this.first._id}}" class="btn btn-danger mt-4"
                                     onclick="return confirm('Are you sure to remove this')">Remove <b>X</b></a>
 
                             </td>
@@ -56,13 +51,17 @@
                     </tbody>
                 </table>
                 <div class="float-right m-5">
+                    {{#if total}}
                     <h2 class="text-light">Total : <span id="total">{{total}}</span> ₹</h2>
-                    <a href="/placeorder" class="btn btn-success" style="width: 100%;">Place Order</a>
+                    {{else}}
+                    <h2 class="text-light">Total : <span id="total">0</span> ₹</h2>
+                    {{/if}}
+                    <a href="/placeorder" class="btn btn-outline-success mt-3" style="width: 100%;">Place Order</a>
                 </div>
             </div>
         </div>
         {{else}}
-        <h1 class="text-center mt-5 p-5 text-white">Nothing you selected....</h1>
+        <h1 class="text-center p-5 text-white mt-3">Nothing you selected....</h1>
         {{/if}}
     </div>
 </div>
@@ -93,6 +92,7 @@
 
                     document.getElementById(proId).innerHTML = q + cute
                     document.getElementById('total').innerHTML = response.total
+                    location.reload()
 
 
                 }

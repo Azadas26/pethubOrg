@@ -1,0 +1,71 @@
+<div>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-6 " style="background-color: #343a40; text-align: center;">
+
+                <a href="/orders" class="btn btn-dark" style="width: 100%; color: #ffc107;" id="pets">PETS Orders</a>
+            </div>
+            <div class="col-md-6 " style="background-color: #ffc107;text-align: center;">
+                <a href="/" class="btn btn-warning" style="width: 100%;">𝘼𝘾𝘾𝙀𝙎𝙎𝙊𝙍𝙄𝙀𝙎<b> / FOOD
+                        Orders</b> </a>
+            </div>
+
+        </div>
+
+
+       
+        <div class="row" style="background-color: black;">
+            <div class="col-12 col-md-12 p-5">
+                <table class="table " style="text-align:center ;">
+                    <thead>
+                        <tr style="color: white; font-size: 24px;">
+                            <th scope="col">NO.</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Product_Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Remove Orders</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each info}}
+                        <tr style="color: white; font-size: 20px;">
+
+                            <td>{{@index}}</td>
+                            <td><a href="/proinfo?id={{this.item}}"><img src="/user-image/{{this.pro._id}}1.jpg"
+                                        width="150px" height="100px" alt=""></a>
+                            </td>
+                            <td><a href="/proinfo?id={{this.item}}"
+                                    style="text-decoration: none; color: white;">{{this.pro.petinfo.pname}}</a>
+                            </td>
+                            <td><a href="#"
+                                    style="text-decoration: none; color: white;">{{this.pro.petinfo.price}}</a>
+                            </td>
+                            <td>
+                               
+                                <span id="{{this.item}}">{{this.quantity}}</span>
+                                
+                            </td>
+                            
+                            <td>
+                                    <a href="#" style="text-decoration: none; color: white;">{{this.totalamount}}</a>
+                            </td>
+                            <td>
+                                <a href="" class="btn btn-outline-danger mt-4">Remove Order</a>
+                            </td>
+                           
+
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+               
+            </div>
+        </div>
+       
+    </div>
+</div>
+

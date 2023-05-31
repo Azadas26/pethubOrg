@@ -6,9 +6,9 @@ var userbase = require('../database/user_base')
 /* GET home page. */
 router.get('/', (req, res) => {
   if (req.session.adfalse) {
-    res.render('./admin/login-page', { admin: true,errr:"Incorrect Usename or Password"})
-    req.session.adfalse=false
-   }
+    res.render('./admin/login-page', { admin: true, errr: "Incorrect Usename or Password" })
+    req.session.adfalse = false
+  }
   else {
     res.render('./admin/login-page', { admin: true })
   }
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   console.log(req.body);
   if (req.body.name == "admin") {
-   
+
     if (req.body.password == "pethub") {
       req.session.admin = "Admin"
       req.session.adstatus = true
@@ -33,14 +33,14 @@ router.post('/', (req, res) => {
     res.redirect('/admin')
   }
 })
- router.get('/showpro', function (req, res, next) {
+router.get('/showpro', function (req, res, next) {
 
-   adminbase.Output_admin_products_for_admin().then((products) => {
-     res.render('./admin/list-products', { admin: true, products })
-   })
+  adminbase.Output_admin_products_for_admin().then((products) => {
+    res.render('./admin/list-products', { admin: true, products })
+  })
 
 
- });
+});
 
 router.get('/add', (req, res) => {
   res.render('./admin/add-products', { admin: true })
@@ -103,6 +103,16 @@ router.get('/useradd', (req, res) => {
 router.get('/selldelete', (req, res) => {
   userbase.Delete_user_sell(req.query.id).then((data) => {
     res.redirect('/admin/useradd')
+  })
+})
+router.get('/userorders', (req, res) => {
+  adminbase.Get_all_product_orders_By_whisc_User().then((details) => {
+    res.render('./admin/user-orders', { admin: true, pro: details })
+  })
+})
+router.get('/userpetorders', (req, res) => {
+  adminbase.Get_Pet_orders_Details().then((info) => {
+    res.render('./admin/user-petorders', { admin: true, pro: info })
   })
 })
 

@@ -27,7 +27,7 @@ module.exports=
                     //console.log("data base connection successfull...")
                      resolve("Database connection successfull...")
                  }
-              })
+              })   
 
           })
      },

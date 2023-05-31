@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6 mt-5 p-5">
-            <form class="mt-5 p-4 text-light">
+        <div class="col-md-6  p-5">
+            <form class="mt-5 p-4 text-light" action="/placeorder" method="post">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Address</label>
                     <input type="text" style="height: 70px;" name="adsress" class="form-control" id="exampleInputEmail1"
@@ -30,9 +30,8 @@
                     <div class="form-group">
                         <input type="radio" name="pay" value="cod">
                         <label for="exampleInputPassword1" class="text-light">Cash Own Delivery</label> <br>
-                        <input type="radio" name="pay" value="online" disabled>
-                        <label for="exampleInputPassword1" class="text-light">Online Payment <i class="bg-warning text-dark">(Temporary not
-                                available)</i> </label>
+                        <input type="radio" name="pay" value="online">
+                        <label for="exampleInputPassword1" class="text-light">Online Payment</label>
                     </div>
                     <h4 class="text-light">Total Ammount : {{total}}/-</h4>
                     <button type="submit" class="btn btn-outline-warning mt-3" style="width: 100%;">Buy
@@ -40,6 +39,14 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{#each del}}
+                <h1>{{this.pro.userid}}</h1>
+            
+            {{/each}}
         </div>
     </div>
 </div>

@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 p-2">
+            <table class="table text-center text-light" id="userorders">
+                <h1 class="text-light text-center p-4"><b>Your Orders</b></h1>
+                <thead class="">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Products</th>
+                        <th scope="col">Products Image</th>
+                        <th scope="col">Discription</th>
+                        <th scope="col">Price</th>
+                      
+                        <th scope="col">Payment Method</th>
+                        <th scope="col"> Status</th>
+                        <th scope="col">Payment Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each petpros}}
+                   
+                    <tr>
+
+                        <td>{{@index}}</td>
+                        <td>{{this.pro.petinfo.pname}}</td>
+                        <td><img src="/user-image/{{this.pro._id}}1.jpg" style="width: 200px; height: 200px;"
+                                alt=""></td>
+                        <td style="max-width: 90px;">{{this.pro.petinfo.discription}}</td>
+                        <td>{{this.pro.petinfo.price}}</td>
+                     
+                        <td>{{this.pay}}</td>
+                        <td>{{this.status}}</td>
+                        <td>{{this.date}}</td>
+
+                    </tr>
+                  
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

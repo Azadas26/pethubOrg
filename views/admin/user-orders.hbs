@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 mt-5 p-5">
+            <table class="table text-light">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Products</th>
+                        <th scope="col">Products Image</th>
+                        <th scope="col">Discription</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Payment Method</th>
+                        <th scope="col"> Status</th>
+                        <th scope="col">Payment Date</th>
+                        <th scope="col">User(Buy Products)</th>
+                        <th scope="col">User Email</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each pro}}
+                    {{#if this.users}}
+                    <tr>
+
+                        <td>{{@index}}</td>
+                        <td>{{this.pro.name}}</td>
+                        <td><img src="/admin_image/{{this.pro._id}}.jpg"
+                                style="width: 200px; height: 200px; border-radius: 20px;" alt=""></td>
+                        <td style="max-width: 90px;">{{this.pro.discription}}</td>
+                        <td>{{this.pro.price}}</td>
+                        <td>{{this.quantity}}</td>
+                        <td>{{this.pay}}</td>
+                        <td>{{this.status}}</td>
+                        <td>{{this.date}}</td>
+                        <td>{{this.users.Name}}</td>
+                        <td>{{this.users.Email}}</td>
+                    </tr>
+                    {{/if}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
