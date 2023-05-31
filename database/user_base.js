@@ -510,6 +510,16 @@ module.exports =
             var pets = await db.get().collection(consts.user_Orders_base).find({byuser:objectId(userId)}).toArray()
             resolve(pets)
         })
+    },
+    Remove_pet_Product_When_Complete_PlaceOrder:(proId)=>
+    {
+        return new Promise(async(resolve,reject)=>
+        {
+            await db.get().collection(consts.sell_base).removeOne({_id:objectId(proId)}).then(()=>
+            {
+                resolve()
+            })
+        })
     }
 }
 

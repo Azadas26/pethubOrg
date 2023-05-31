@@ -310,15 +310,16 @@ router.post('/buypet', (req, res) => {
     console.log(req.body);
     userbase.Place_Pets_orders(req.body).then((data)=>
     {
-       //console.log(data);
-        if(req.body.pay=='cod')
-        {
+      userbase.Remove_pet_Product_When_Complete_PlaceOrder(req.body.pro._id).then(()=>
+      {
+        if (req.body.pay == 'cod') {
           res.render('./user/after-petorder', { userhd: true, user: req.session.user })
         }
-        else
-        {
+        else {
           res.redirect('/buynow')
         }
+      })
+       //console.log(data);
     })
 
   })
