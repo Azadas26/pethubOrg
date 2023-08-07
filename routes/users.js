@@ -295,7 +295,7 @@ router.get('/vieworder', this.common, (req, res) => {
     res.render('./user/view-orders', { userhd: true, user: req.session.user, info: products })
   })
 })
-router.get('/buypet', this.common,(req, res) => {
+router.get('/buypet', this.common, (req, res) => {
   console.log(req.query.id, req.query.price);
 
   res.render('./user/petorder-form', { userhd: true, user: req.session.user, total: req.query.price, proid: req.query.id })
@@ -306,12 +306,10 @@ router.post('/buypet', (req, res) => {
     req.body.byuser = ObjectId(req.session.user._id);
     req.body.date = new Date()
     req.body.pro = pro
-    req.body.status=req.body.pay=='cod'?'placed' :'panding'
+    req.body.status = req.body.pay == 'cod' ? 'placed' : 'panding'
     console.log(req.body);
-    userbase.Place_Pets_orders(req.body).then((data)=>
-    {
-      userbase.Remove_pet_Product_When_Complete_PlaceOrder(req.body.pro._id).then(()=>
-      {
+    userbase.Place_Pets_orders(req.body).then((data) => {
+      userbase.Remove_pet_Product_When_Complete_PlaceOrder(req.body.pro._id).then(() => {
         if (req.body.pay == 'cod') {
           res.render('./user/after-petorder', { userhd: true, user: req.session.user })
         }
@@ -319,17 +317,15 @@ router.post('/buypet', (req, res) => {
           res.redirect('/buynow')
         }
       })
-       //console.log(data);
+      //console.log(data);
     })
 
   })
 })
-router.get('/vieworder2',this.common,(req,res)=>
-{
-  userbase.Get_ordered_pet_Details(req.session.user._id).then((petpros)=>
-  {
+router.get('/vieworder2', this.common, (req, res) => {
+  userbase.Get_ordered_pet_Details(req.session.user._id).then((petpros) => {
     console.log(petpros);
-    res.render('./user/view-petorders', { userhd: true, user: req.session.user,petpros})
+    res.render('./user/view-petorders', { userhd: true, user: req.session.user, petpros })
   })
 })
 
