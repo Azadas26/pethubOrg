@@ -230,5 +230,24 @@ module.exports =
             console.log(info);
             resolve(info)
         })
+    },
+    Admin_Login : (info)=>
+    {
+        return new Promise(async(resolve,reject)=>
+        {
+            await db.get().collection(consts.admin_Login).findOne({name:info.name},{password:info.password}).then((info)=>
+            {
+               if(info)
+               {
+                        resolve({...info})
+                        console.log("successs");
+               }
+               else
+               {
+                        resolve(false)
+                        console.log("faild");
+               }
+            })
+        })
     }
 }

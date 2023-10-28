@@ -520,6 +520,24 @@ module.exports =
                 resolve()
             })
         })
+    },
+    Check_wether_the_email_is_Already_Exist_or_nOt : (info)=>
+    {
+        return new Promise(async(resolve,reject)=>
+        {
+            await db.get().collection(consts.user_base).findOne({Email:info.Email}).then((resp)=>
+            {
+                console.log(resp);
+                if(resp)
+                {
+                    resolve(true)
+                }
+                else
+                {
+                    resolve(false)
+                }
+            })
+        })
     }
 }
 
